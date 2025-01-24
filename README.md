@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://esther-product-list.netlify.app/)
 
 ## My process
 
@@ -45,60 +45,93 @@ Users should be able to:
 - CSS custom properties
 - Flexbox
 - CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- JavaScript
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+This project helped me enhance my understanding of JavaScript for DOM manipulation and event handling. Here’s a snippet I’m particularly proud of:
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+function setupIncrementDecrement(button, product) {
+    let cartItem = cart.find((item) => item.id === product.id);
+    let quantity = cartItem ? cartItem.quantity : 1;
+
+    button.innerHTML = `   
+        <span class="decrement">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" fill="currentColor" viewBox="0 0 10 2" class="increment-icon">
+                <path d="M0 .375h10v1.25H0V.375Z" />
+            </svg>
+        </span>
+        <span class="quantity">${quantity}</span>
+        <span class="increment">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 10 10" class="decrement-icon">
+                <path d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z" />
+            </svg>
+        </span>
+    `;
+
+    const decrementBtn = button.querySelector(".decrement");
+    const incrementBtn = button.querySelector(".increment");
+    const quantityDisplay = button.querySelector(".quantity");
+    const productCard = button.closest(".product-card");
+    const productImage = productCard.querySelector(".product-image");
+
+    decrementBtn.onclick = () => {
+        if (quantity > 1) {
+            quantity--;
+            quantityDisplay.textContent = quantity;
+            updateCartQuantity(product, quantity);
+        } else {
+            
+            // Reset to default "Add to Cart" button
+            button.innerHTML = `
+                <img src="./assets/images/icon-add-to-cart.svg" alt="Cart Icon" class="cart-icon" />
+                Add to Cart
+            `;
+
+            button.classList.remove("active");
+            productImage.classList.remove("active");
+
+            // Remove all event listeners
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+
+            // Add the original click event back
+            newButton.addEventListener("click", () => handleAddToCart(product.id, newButton));
+
+            // Remove from cart
+            removeFromCart(product.id);
+        }
+    };
+
+    incrementBtn.onclick = () => {
+        quantity++;
+        quantityDisplay.textContent = quantity;
+        updateCartQuantity(product, quantity);
+    };
 }
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In future projects, I aim to:
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- Enhance code reusability by implementing modular JavaScript.
+- Focus more on improving accessibility (e.g., keyboard navigation and ARIA roles).
+- Optimize performance for large datasets by using virtualized lists.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [MDN Web Docs ](https://developer.mozilla.org/en-US/) - A helpful resource for JavaScript and CSS documentation.
+- [CSS Trick](https://css-tricks.com/) - Provided great insights into responsive design techniques.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+- Website - [Esther AJAYI](https://esthercoders.netlify.app)
+- Frontend Mentor - [@esther-must](https://www.frontendmentor.io/profile/esther-must)
+- Twitter - [@adexdainty92](https://x.com/adexdainty92)
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+I would like to thank the Frontend Mentor community for their valuable feedback and support. Special thanks to Open AI for their guidance during this project.
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**

@@ -121,7 +121,6 @@ const cartTotal = document.getElementById("cart-total");
 const confirmOrderBtn = document.getElementById("confirm-order");
 const startNewOrderBtn = document.getElementById("start-new-order");
 const orderModal = document.getElementById("order-modal");
-// const closeModal = document.getElementById("close-modal");
   
 // Initialize product list
 function loadProducts() {
@@ -219,7 +218,7 @@ function setupIncrementDecrement(button, product) {
 
 function handleAddToCart(productId, buttonElement) {
     if (buttonElement.querySelector('.decrement')) {
-        return; // Prevent re-initializing if already in increment/decrement mode
+        return;
     }
 
     const product = products.find((p) => p.id === productId);
@@ -227,10 +226,10 @@ function handleAddToCart(productId, buttonElement) {
     const productImage = card.querySelector(".product-image");
 
     productImage.classList.add("active");
-    buttonElement.classList.add("active"); // Change button appearance
-    addToCart(productId); // Add the product to the cart immediately
+    buttonElement.classList.add("active");
+    addToCart(productId);
     updateCart();
-    setupIncrementDecrement(buttonElement, product); // Update button with increment and decrement
+    setupIncrementDecrement(buttonElement, product);
 }
 
 function updateCartQuantity(product, quantity) {
@@ -238,9 +237,9 @@ function updateCartQuantity(product, quantity) {
 
     if (quantity > 0) {
         if (cartItem) {
-            cartItem.quantity = quantity; // Update the existing item's quantity
+            cartItem.quantity = quantity;
         } else {
-            cart.push({ ...product, quantity }); // Add new item to cart
+            cart.push({ ...product, quantity });
         }
     } else {
         const button = document.querySelector(`#add-to-cart-${product.id - 1}`);
@@ -261,7 +260,7 @@ function updateCartQuantity(product, quantity) {
         removeFromCart(product.id);
     }
 
-    updateCart(); // Update cart UI
+    updateCart();
 }
   
 // Add to cart
@@ -290,8 +289,8 @@ function updateCart() {
         `;
         cartTotal.textContent = "Order Total $0.00";
         cartTotal.style.display = "none";
-        confirmOrderBtn.disabled = true; // Disable the "Confirm Order" button
-        cartCount.textContent = 0; // Reset the cart count
+        confirmOrderBtn.disabled = true;
+        cartCount.textContent = 0;
         return;
     }
 
@@ -370,7 +369,7 @@ confirmOrderBtn.addEventListener("click", () => {
     const modalCartItems = document.getElementById("modal-cart-items");
     const orderTotalSection = document.createElement("div");
 
-    modalCartItems.innerHTML = ""; // Clear any existing items in the modal
+    modalCartItems.innerHTML = "";
 
     let orderTotal = 0;
 
@@ -420,7 +419,7 @@ function startNewOrder() {
     productImages.forEach(image => {
         image.classList.remove("active"); 
     });
-    
+
     // Reset the "Add to Cart" buttons
     const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
     addToCartButtons.forEach((button, index) => {
