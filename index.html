@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <section class="products-section">
+            <h1 class="section-title">Desserts</h1>
+            <div id="product-list">
+            <!-- Product items will be dynamically inserted here -->
+            </div>
+        </section>
+    
+        <aside id="cart">
+            <h2>Your Cart (<span id="cart-count">0</span>)</h2>
+            <div id="cart-items">
+                <img class="cart-illustration" src="/assets/images/illustration-empty-cart.svg" alt="Empty cart">
+                <p class="empty-cart">Your added items will appear here</p>
+                <!-- Cart items will appear here -->
+            </div>
+            <p id="cart-total" style="display: none;">Order Total $0.00</p>
+            <button id="confirm-order">Confirm Order</button>
+            <img src="/assets/images/icon-decrement-quantity.svg" alt="">
+            <img src="/assets/images/icon-increment-quantity.svg" alt="">
+        </aside>
+    </div>
+    <div id="order-modal" class="order-modal hidden" style="display: none;">
+        <div class="modal-content">
+            <img src="/assets/images/icon-order-confirmed.svg" alt="Order confirm">
+            <h2>Order Confirmed</h2>
+            <p>We hope you enjoy your food!</p>
+            <div id="modal-cart-items"></div>
+            <button id="start-new-order"  onclick="startNewOrder()">Start New Order</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
